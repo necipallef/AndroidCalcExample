@@ -16,10 +16,14 @@ public class MainActivity extends Activity
     TextView mSubtractTv;
     TextView mMultiplyTv;
     TextView mDivideTv;
-    TextView mDelete;
-    TextView mEquals;
+    TextView mResetTv;
+    TextView mDeleteTv;
+    TextView mEqualsTv;
+    TextView mOperationTv;
 
-    int mCurrentNumber;
+    float mCurrentNumber;
+    float mCachedNumber;
+    int   mOperation;
 
     static final int OP_ADD      = 1;
     static final int OP_SUBTRACT = 2;
@@ -32,8 +36,9 @@ public class MainActivity extends Activity
         public void onClick(View view)
         {
             String viewText = ((TextView) view).getText().toString();
-            mCurrentNumber = Integer.parseInt(viewText);
-            mResultTv.setText(mCurrentNumber + "");
+            float  digit    = Float.parseFloat(viewText);
+            mCurrentNumber = mCurrentNumber * 10.f + digit;
+            updateResult();
         }
     };
 
@@ -44,7 +49,7 @@ public class MainActivity extends Activity
         setContentView(R.layout.activity_main);
 
         mResultTv = (TextView) findViewById(R.id.tv_result);
-        mResultTv.setText(mCurrentNumber + "");
+        updateResult();
 
         mNumberTvs[0] = (TextView) findViewById(R.id.tv_0);
         mNumberTvs[1] = (TextView) findViewById(R.id.tv_1);
@@ -101,8 +106,18 @@ public class MainActivity extends Activity
             }
         });
 
-        mDelete = (TextView) findViewById(R.id.tv_delete);
-        mDelete.setOnClickListener(new View.OnClickListener()
+        mResetTv = (TextView) findViewById(R.id.tv_reset);
+        mResetTv.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                reset();
+            }
+        });
+
+        mDeleteTv = (TextView) findViewById(R.id.tv_delete);
+        mDeleteTv.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -111,8 +126,8 @@ public class MainActivity extends Activity
             }
         });
 
-        mEquals = (TextView) findViewById(R.id.tv_equals);
-        mEquals.setOnClickListener(new View.OnClickListener()
+        mEqualsTv = (TextView) findViewById(R.id.tv_equals);
+        mEqualsTv.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -120,38 +135,100 @@ public class MainActivity extends Activity
                 calculateResult();
             }
         });
+
+        mOperationTv = (TextView) findViewById(R.id.tv_op);
     }
 
     private void doOperation(int op)
     {
-        switch (op)
+        mCachedNumber = mCurrentNumber;
+        mCurrentNumber = 0;
+        mOperation = op;
+        updateOperationTv();
+    }
+
+    private void updateOperationTv()
+    {
+        switch (mOperation)
         {
             case OP_ADD:
-                // TODO
+                mOperationTv.setText("+");
                 break;
             case OP_SUBTRACT:
-                // TODO
+                mOperationTv.setText("-");
                 break;
             case OP_MULTIPLY:
-                // TODO
+                mOperationTv.setText("x");
                 break;
             case OP_DIVIDE:
-                // TODO
+                mOperationTv.setText("/");
                 break;
             default:
-                // TODO
+                mOperationTv.setText("");
                 break;
         }
     }
 
     private void delete()
     {
-        // TODO
+        mCurrentNumber = (mCurrentNumber - (mCurrentNumber % 10.f)) / 10.f;
+        updateResult();
+    }
+
+    private void reset()
+    {
+        mCachedNumber = 0.f;
+        mCurrentNumber = 0.f;
+        updateResult();
     }
 
     private void calculateResult()
     {
-        // TODO
-        mResultTv.setText(mCurrentNumber + "");
+        float result;
+        switch (mOperation)
+        {
+            case OP_ADD:
+                result = mCachedNumber + mCurrentNumber;
+                break;
+            case OP_SUBTRACT:
+                result = mCachedNumber - mCurrentNumber;
+                break;
+            case OP_MULTIPLY:
+                result = mCachedNumber * mCurrentNumber;
+                break;
+            case OP_DIVIDE:
+                if (mCurrentNumber == 0)
+                {
+                    updateResult("NaN");
+                    return;
+                } else
+                {
+                    result = mCachedNumber / mCurrentNumber;
+                }
+                break;
+            default:
+                updateResult("Invalid OP");
+                return;
+        }
+
+        mCurrentNumber = result;
+        updateResult();
+        mOperationTv.setText("");
+    }
+
+    private void updateResult(String message)
+    {
+        mResultTv.setText(message);
+    }
+
+    private void updateResult()
+    {
+        String resultString = mCurrentNumber + "";
+        String afterComma   = resultString.split("\\.")[1];
+        if (afterComma.equals("0"))
+        {
+            resultString = resultString.split("\\.")[0];
+        }
+        mResultTv.setText(resultString);
     }
 }
