@@ -1,0 +1,156 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#777777"
+    tools:ignore="HardcodedText">
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="right|bottom"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:text="0"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/CalcActionStyle"
+            android:id="@+id/tv_delete"
+            android:text="C" />
+
+        <TextView
+            style="@style/CalcActionStyle"
+            android:text="±" />
+
+        <TextView
+            style="@style/CalcActionStyle"
+            android:text="%" />
+
+        <TextView
+            style="@style/CalcActionStyle"
+            android:id="@+id/tv_divide"
+            android:text="/" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/CalcNumberStyle"
+            android:id="@+id/tv_7"
+            android:text="7" />
+
+        <TextView
+            style="@style/CalcNumberStyle"
+            android:id="@+id/tv_8"
+            android:text="8" />
+
+        <TextView
+            style="@style/CalcNumberStyle"
+            android:id="@+id/tv_9"
+            android:text="9" />
+
+        <TextView
+            style="@style/CalcActionStyle"
+            android:id="@+id/tv_multiply"
+            android:text="x" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/CalcNumberStyle"
+            android:id="@+id/tv_4"
+            android:text="4" />
+
+        <TextView
+            style="@style/CalcNumberStyle"
+            android:id="@+id/tv_5"
+            android:text="5" />
+
+        <TextView
+            style="@style/CalcNumberStyle"
+            android:id="@+id/tv_6"
+            android:text="6" />
+
+        <TextView
+            style="@style/CalcActionStyle"
+            android:id="@+id/tv_subtract"
+            android:text="-" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/CalcNumberStyle"
+            android:id="@+id/tv_1"
+            android:text="1" />
+
+        <TextView
+            style="@style/CalcNumberStyle"
+            android:id="@+id/tv_2"
+            android:text="2" />
+
+        <TextView
+            style="@style/CalcNumberStyle"
+            android:id="@+id/tv_3"
+            android:text="3" />
+
+        <TextView
+            style="@style/CalcActionStyle"
+            android:id="@+id/tv_add"
+            android:text="+" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/CalcNumberStyle"
+            android:id="@+id/tv_0"
+            android:text="0"
+            android:gravity="fill"
+            android:paddingLeft="40dp"
+            android:layout_weight="2" />
+
+        <TextView
+            style="@style/CalcNumberStyle"
+            android:id="@+id/tv_nokta"
+            android:text="." />
+
+        <TextView
+            style="@style/CalcActionStyle"
+            android:id="@+id/tv_equals"
+            android:text="=" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="0.6dp"
+        android:gravity="center"
+        android:textColor="#dddddd"
+        android:textStyle="bold"
+        android:textSize="9sp"
+        android:text="@string/signature"/>
+</LinearLayout>
